@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 function App() {
 
-  const [photo, setPhoto] = useState<any>(null);
-  const [extractedText, setExtractedText] = useState<any>("");
+  const [photo, setPhoto] = useState<string>("");
+  const [extractedText, setExtractedText] = useState<string>("Extracted Text Appears Here");
 
   const API_KEY = import.meta.env.VITE_GOOGLE_CLOUD_VISION_API_KEY;
 
@@ -67,27 +67,59 @@ function App() {
 
   return (
     <>
-    <div className="app">
-      <h1>Receipt OCR</h1>
+      <div className="flex flex-col min-h-screen">
+          {/* Header */}
+          <div className="flex justify center items-center h-1/8 ml-20">
+            <h1 className="text-7xl font-bold text-center mt-20">Receipt<br /> Reader</h1>
+          </div>
 
-      <input type="file" accept="image/*" onChange={handleFileChange} />
+          {/* Body */}
+          <div className="flex flex-row flex-grow items-center justify-evenly h-7/8 mb-20">
+            
+            {/* File Upload */}
+            <div className="flex flex-col w-96">
+              <label
+                htmlFor="file-upload"
+                className="bg-gray-200 p-2 m-5 rounded hover:bg-gray-300 transition transform active:scale-95 text-center"
+              >
+                Upload Receipt
+              </label>
+              <input
+                id="file-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="hidden"
+              />
 
-      {photo && (
-        <div style={{ marginTop: '1rem' }}>
-          <img src={photo} alt="Selected" style={{ width: 200, height: 200 }} />
+              {photo && (
+                <div className="mt-1">
+                  <img 
+                    src={photo} 
+                    alt="Selected"
+                    className="border-4 border-gray-300 rounded p-2 h-96 object-contain" 
+                  />
+                </div>
+              )}
+
+              <button 
+                onClick={performOCR} 
+                className="bg-gray-200 p-2 m-5 rounded hover:bg-gray-300 transition transform active:scale-95"
+              >
+                Analyze Receipt
+              </button>
+            </div>
+
+            {/* Text Extract */}
+            <div
+              className="border-4 border-gray-300 rounded p-2 w-96 h-96 flex justify-center items-center" 
+            >
+              {extractedText && (
+                <span>{extractedText}</span>
+              )}
+            </div>
         </div>
-      )}
-
-      <button onClick={performOCR} style={{ marginTop: '1rem' }}>
-        Analyze Receipt
-      </button>
-
-      {extractedText && (
-        <pre style={{ background: '#fff', padding: '1rem', marginTop: '1rem' }}>
-          {extractedText}
-        </pre>
-      )}
-    </div>
+      </div>
     </>
   );
 
