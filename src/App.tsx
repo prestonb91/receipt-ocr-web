@@ -67,14 +67,14 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col h-screen">
           {/* Header */}
-          <div className="flex justify center items-center h-1/8 ml-20">
-            <h1 className="text-7xl font-bold text-center mt-20">Receipt<br /> Reader</h1>
+          <div className="flex justify center items-center pl-20 h-1/4">
+            <h1 className="text-7xl font-bold text-center">Receipt<br /> Reader</h1>
           </div>
 
           {/* Body */}
-          <div className="flex flex-row flex-grow items-center justify-evenly h-7/8 mb-20">
+          <div className="flex flex-row flex-grow items-center justify-evenly">
             
             {/* File Upload */}
             <div className="flex flex-col w-96">
